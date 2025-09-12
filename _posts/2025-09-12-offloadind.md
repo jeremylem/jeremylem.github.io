@@ -43,18 +43,13 @@ solution.
 
 Assuming you have ruby install, run `gem install jekyll bundler`
 
-If you want to see how it looks like on your local machine before publishing:
-
 `cat Gemfile`
 
 ```ruby
 source "https://rubygems.org"
+gem "github-pages"
 gem "no-style-please"
-gem "jekyll", "~> 4.1"
-gem "github-pages", group: :jekyll_plugins
 ```
-
-run `bundle install`
 
 and in `_config.yml` at the root:
 
@@ -104,6 +99,6 @@ something important ...
 {% endraw %}
 ```
 
-run `bundle exec jekyll serve` to test locally or simply push and forget when everything has been setup.
+If you want to see how it looks like on your local machine before publishing run `bundle install` and after run `bundle exec jekyll serve` or simply push and forget when everything has been setup.
 
 PS1: You need to enable Jekyll in the Settings of your repository. It will create a GitHub action for deployment.
