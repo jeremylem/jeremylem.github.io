@@ -50,7 +50,7 @@ If you want to see how it looks like on your local machine before publishing:
 ```ruby
 source "https://rubygems.org"
 gem "no-style-please"
-gem "jekyll", "~> 3.10.0"
+gem "jekyll", "~> 4.1"
 gem "github-pages", group: :jekyll_plugins
 ```
 
@@ -104,4 +104,6 @@ something important ...
 {% endraw %}
 ```
 
-run `bundle exec jekyll serve` to test locally or simply push and forget when everything has been setup
+run `bundle exec jekyll serve` to test locally or simply push and forget when everything has been setup.
+
+PS1: You need to enable Jekyll in the Settings of your repository. It will create a GitHub action for deployment.
