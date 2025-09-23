@@ -1,3 +1,3 @@
 source "https://rubygems.org"
 gem "github-pages"
-gem "no-style-please"
+gem "overkyll-jekyll-theme"

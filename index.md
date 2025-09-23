@@ -1,10 +1,10 @@
 ---
-layout: default
+layout: page
 ---
 
 # I'm J3r3my.
 
-I am exploring cognitive offloading, one article at a time. I use this blog to empty my mind.
+I am exploring cognitive offloading, one article at a time. I use this blog to empty my mind .
 
 ## Posts
 

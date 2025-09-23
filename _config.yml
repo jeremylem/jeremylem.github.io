@@ -2,8 +2,7 @@ title: Cognitive offloading
 description: Emptying the mind, one article at a time
 author: Jeremy Lemaire
 email: jeremy.lemaire (@) gmail.com
-theme: no-style-please
+theme: "overkyll-jekyll-theme"
 markdown: kramdown
 kramdown:
   input: GFM
-  syntax_highlighter: rouge
