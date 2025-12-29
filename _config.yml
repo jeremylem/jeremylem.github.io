@@ -3,6 +3,7 @@ description: Emptying the mind, one article at a time
 author: J. Lemaire
 email: jeremy.lemaire (@) gmail.com
 url: "https://jeremylem.github.io"
+og_image: /assets/xray-brain.png
 
 # Theme
 remote_theme: "mmistakes/minimal-mistakes@4.27.3"
