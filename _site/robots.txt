@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jeremylem.github.io/sitemap.xml
