@@ -9,4 +9,4 @@ author_profile: true
 
 A technical notebook for documenting solutions or experimentations.
 
-Want to learn more about my experience? Chat with my AI-powered virtual clone at [chat.lemaire.tel](https://chat.lemaire.tel) - it's trained on my resume and can answer questions about my technical background, projects, and skills.
+Want to learn more about my experience? Chat with my AI-powered virtual clone at [chat.lemaire.tel](https://chat.lemaire.tel). It's trained on my resume and can answer questions about my technical background, projects, and skills.
