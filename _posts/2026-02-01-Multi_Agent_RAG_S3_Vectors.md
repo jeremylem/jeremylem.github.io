@@ -250,20 +250,23 @@ virtualme has the same cold start issues. Serverless trade-off.
 | S3 Vectors storage | < $0.01 |
 | S3 Vectors queries | < $0.01 |
 | Titan Embeddings (ingestion) | < $0.01 |
-| Nova 2 Lite (queries) | ~$0.10-0.30* |
+| Nova Lite (3 agents) | ~$0.30-0.70 |
 | Lambda | free tier |
-| **Total** | **~$0.15-0.35** |
+| **Total** | **~$0.35-0.75** |
 
-*Multi-agent adds cost: 3 agents per query, possibly 3 iterations if critique score < 7. Worst case: 9 agent calls per query.
+Multi-agent multiplies Bedrock costs: 3 agents per query, up to 3 iterations if critique score < 7. Worst case: 9 model calls per query.
+
+**Pricing reference** (Nova Lite): $0.06/1M input tokens, $0.24/1M output tokens.
 
 ### virtualme (DynamoDB)
 
-| Component     | Monthly Cost    |
-| ------------- | --------------- |
-| DynamoDB      | free tier       |
-| Bedrock model | ~$0.05-0.10     |
-| Lambda        | free tier       |
-| **Total**     | **~$0.05-0.10** |
+| Component | Monthly Cost | Notes |
+|-----------|-------------|-------|
+| DynamoDB | $0 | Free tier: 25 RCUs/WCUs, 25GB |
+| Nova Lite | ~$0.10-0.30 | Single agent per query |
+| Lambda + API Gateway | $0 | Free tier: 1M requests/month |
+| Route53 + CloudFront | ~$0.60 | Web frontend infrastructure |
+| **Total** | **~$0.70-0.90** |
 
 ### Session Storage
 

@@ -516,17 +516,20 @@ Using less than 512MB leads to `Memory Limit Exceeded` during LangChain initiali
 
 ## Cost Estimate
 
-For personal use (~100 conversations/month): **~$3-5/month**
+For personal use (~100 conversations/month): **~$0.60-$1.00/month**
 
-| Service | Estimated Cost |
-|---------|---------------|
-| Lambda + API Gateway | $0.30 - $1.00 |
-| DynamoDB | $1.00 - $5.00 |
-| Bedrock (Nova 2 Lite) | $0.50 - $2.00 |
-| S3 + CloudFront | $0.15 - $0.50 |
-| Route53 | $0.50 |
+| Service | Estimated Cost | Notes |
+|---------|---------------|-------|
+| Lambda | $0 | Free tier: 1M requests/month |
+| API Gateway | $0 | Free tier: 1M requests/month |
+| DynamoDB | $0 | Free tier: 25 RCUs/WCUs, 25GB storage |
+| Bedrock (Nova Lite) | $0.10 - $0.30 | ~700 queries × 2K input + 300 output tokens |
+| S3 + CloudFront | $0.05 - $0.15 | Static frontend hosting |
+| Route53 | $0.50 | 1 hosted zone |
 
 **Idle Cost**: $0. Pure pay-per-request serverless architecture.
+
+**Pricing reference** (Nova Lite): $0.06/1M input tokens, $0.24/1M output tokens.
 
 ---
 
