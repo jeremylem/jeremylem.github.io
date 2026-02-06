@@ -7,7 +7,7 @@ categories: [blogging]
 
 ## The Evolution
 
-A couple of weeks ago, I built [Virtual Me](https://chat.lemaire.tel),  a RAG-powered chatbot that answers questions about my professional experience. It worked, but I wasn't satisfied fully satisfied.
+A couple of weeks ago, I built [Virtual Me](https://chat.lemaire.tel), a RAG-powered chatbot that answers questions about my professional experience. It worked, but I wasn't fully satisfied.
 
 **The v1.0 stack:**
 - Python Lambda with custom DynamoDB vector store
@@ -16,7 +16,7 @@ A couple of weeks ago, I built [Virtual Me](https://chat.lemaire.tel),  a RAG-po
 - 4-second cold starts
 - 1,488 lines of application code
 
-It was over-engineered to avoid using ElasticSearch
+It was over-engineered to avoid using ElasticSearch.
 
 So I rebuilt it from scratch. **Virtual Me 2.0** is now simpler, faster, and cheaper.
 
@@ -58,9 +58,11 @@ The cold start improvement is measured via CloudWatch Logs Insights:
 
 ## Why Swift?
 
-I first explored Swift server-side when I worked on a mobile app in my previous job. At the time, I experimented with Vapor and Kitura. I'm really happy to see the  language reached cloud.
+I first explored Swift server-side when I worked on a mobile app in my previous job. At the time, I experimented with Vapor and Kitura. I'm really happy to see the language reached the cloud.
 
-I chose Swift for Lambda because of its compiled nature and minimal runtime overhead.
+I chose Swift for Lambda because of its compiled nature and minimal runtime overhead. I also wanted to revisit Swift on the cloud after exploring Vapor and Kitura years ago. I see real value in running memory-efficient code for cost reduction, and using a strongly typed language is essential to catch errors now that so much of our code is AI-generated.
+
+Swift uses [Automatic Reference Counting (ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/) for memory management, which means no garbage collection pauses like JVM languages (Java, Kotlin) - memory is deallocated deterministically when references drop to zero.
 
 **Cold start breakdown:**
 1. **Init Duration**: Time to initialize the Lambda execution environment
@@ -110,7 +112,7 @@ func handleRequest(event: APIGatewayV2Request) async throws -> APIGatewayV2Respo
 }
 ```
 
- No custom vector search. No manual embedding generation. Just call Bedrock Knowledge Base and return the result.
+No custom vector search. No manual embedding generation. Just call Bedrock Knowledge Base and return the result.
 
 ---
 
@@ -130,7 +132,7 @@ S3 Vectors is AWS's managed vector database. It integrates directly with Bedrock
 - Index management
 - Query optimization
 
-My v1.0 DynamoDB implementation had ~400 lines of code for vector search. S3 Vectors replaced all of it. Not as free as a beer like DynamoDB but affordable for my budget. 
+My v1.0 DynamoDB implementation had ~400 lines of code for vector search. S3 Vectors replaced all of it. Not free like DynamoDB, but affordable for my budget. 
 
 ---
 
@@ -171,7 +173,7 @@ curl -X POST http://127.0.0.1:7000/invoke \
   }'
 ```
 
-This is much simpler than `sam local start-api` which requires Docker and emulates the entire API Gateway + Lambda stack. The Swift runtime's built-in local server connects directly to real AWS services (Bedrock, S3 Vectors) for authentic integration testing
+This is much simpler than `sam local start-api` which requires Docker and emulates the entire API Gateway + Lambda stack. The Swift runtime's built-in local server connects directly to real AWS services (Bedrock, S3 Vectors) for authentic integration testing.
 
 ---
 
