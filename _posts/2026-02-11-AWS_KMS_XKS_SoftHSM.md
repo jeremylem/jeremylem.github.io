@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "AWS KMS External Key Store: Backing Cloud Encryption with a Local SoftHSM"
+title: "AWS KMS External Key Store: Keep Your Encryption Keys Out of the Cloud"
 date: 2026-02-11
 categories: [blogging]
 ---
