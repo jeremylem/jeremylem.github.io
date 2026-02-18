@@ -198,22 +198,37 @@ What threshold cryptography adds is control over the key at rest and visibility 
 
 For the actual security properties most people want from external key management -- control over key material, revocation capability, multi-jurisdiction sovereignty, defense against silent key extraction -- threshold cryptography provides stronger guarantees than a single HSM. A compromised HSM exposes all its keys. A compromised share exposes nothing.
 
-## DORA Compliance
+## Regulatory Landscape
 
-DORA Article 7 (RTS) requires:
+The threshold approach maps to several EU regulations, existing and upcoming.
 
-1. Key lifecycle policy (generate, renew, store, backup, retire, revoke, destroy)
-2. Controls against loss, unauthorized access, disclosure, modification -- proportional to risk assessment
-3. Key replacement procedures for lost/compromised keys
-4. Certificate register for critical functions
+### DORA (Digital Operational Resilience Act)
 
-How the threshold approach maps:
+DORA Article 7 (RTS) requires key lifecycle management, controls against loss and unauthorized access proportional to risk, key replacement procedures, and certificate registers. The threshold approach addresses each:
 
 - **Loss protection** -- 2-of-3 means losing one share doesn't lose the key. Offline backup share provides recovery.
 - **Unauthorized access** -- no single party holds the full key. Compromising one provider reveals nothing mathematically useful.
-- **Key replacement** -- re-run the ceremony, generate new shares, redeploy. The AES keys change, so encrypted data would need re-encryption (same as rotating any KMS key).
+- **Key replacement** -- re-run the ceremony, generate new shares, redeploy.
 - **Third-party concentration risk** (DORA Art. 28+) -- shares on separate providers in separate jurisdictions directly addresses this. DORA specifically calls out concentration risk with single ICT providers.
 - **Auditability** -- every operation logged independently on each provider.
 - **Revocability** -- either party can shut down their service instantly.
+
+### NIS2 Directive
+
+Article 21.2(h) requires encryption and key management proportional to risk for essential and important entities (energy, healthcare, transport, digital infrastructure). AES-256 meets the minimum. Splitting the key across jurisdictions is a stronger control than storing it in one place.
+
+### GDPR
+
+Article 32 requires "appropriate technical measures" including encryption. Article 34 says if data is encrypted and the key is not exposed, breach notification to individuals may not be required. With threshold splitting, the cloud provider never holds the key -- they are a processor with no access to key material. If S3 storage is breached, the encrypted objects are useless without cooperation of two independent parties.
+
+### EU Data Act
+
+Article 28 (applicable since September 2025) requires cloud providers to take "all reasonable measures, including encryption" to prevent unlawful access to data, especially from third-country government requests. This is where threshold splitting has its strongest argument.
+
+The US CLOUD Act allows US law enforcement to compel American companies to hand over data stored abroad. But the CLOUD Act is encryption-neutral -- it does not compel providers to decrypt data they cannot decrypt. With threshold splitting, AWS holds encrypted bytes and zero shares. Scaleway holds one share (France). Exoscale holds one share (Switzerland). No single legal order in any jurisdiction yields the key. A subpoena to AWS is mathematically useless.
+
+### EUCS (European Cybersecurity Certification Scheme for Cloud Services)
+
+Still being finalized by ENISA. Earlier drafts included a "high+" level requiring encryption keys to be held outside the cloud provider's control and within EU jurisdiction. Even though sovereignty requirements were dropped from the latest draft, individual member states can still impose them. The threshold approach is ready for the strictest interpretation: keys are split across European providers, none held by a US-subject entity.
 
 ---
