@@ -5,7 +5,7 @@ date: 2026-02-17
 categories: [blogging]
 ---
 
-In a [previous post](/blogging/AWS_KMS_XKS_SoftHSM/), I backed AWS KMS with a SoftHSM on my local machine via an SSH tunnel, based on the [AWS XKS proxy sample](https://github.com/aws-samples/aws-kms-xks-proxy). It proved the concept: the encryption key lives on hardware I control, and AWS KMS calls my proxy for every cryptographic operation. 
+In a [previous post](/blogging/2026/02/11/AWS_KMS_XKS_SoftHSM.html), I backed AWS KMS with a SoftHSM on my local machine via an SSH tunnel, based on the [AWS XKS proxy sample](https://github.com/aws-samples/aws-kms-xks-proxy). It proved the concept: the encryption key lives on hardware I control, and AWS KMS calls my proxy for every cryptographic operation. 
 
 This post takes a different approach. Instead of storing the AES key in one place and guarding it, I split the key so it never exists in any single location. Two independent services on two different cloud providers each hold a share. They cooperate to perform encryption, but neither can derive the key alone. No HSM required.
 
@@ -197,5 +197,23 @@ And as with any server-side encryption scheme, the data passes through AWS in th
 What threshold cryptography adds is control over the key at rest and visibility into its use. The key cannot be derived without active cooperation from two independent parties on two different cloud providers in two different countries. Unusual access patterns are visible to both. And either party can revoke access instantly by shutting down their service.
 
 For the actual security properties most people want from external key management -- control over key material, revocation capability, multi-jurisdiction sovereignty, defense against silent key extraction -- threshold cryptography provides stronger guarantees than a single HSM. A compromised HSM exposes all its keys. A compromised share exposes nothing.
+
+## DORA Compliance
+
+DORA Article 7 (RTS) requires:
+
+1. Key lifecycle policy (generate, renew, store, backup, retire, revoke, destroy)
+2. Controls against loss, unauthorized access, disclosure, modification -- proportional to risk assessment
+3. Key replacement procedures for lost/compromised keys
+4. Certificate register for critical functions
+
+How the threshold approach maps:
+
+- **Loss protection** -- 2-of-3 means losing one share doesn't lose the key. Offline backup share provides recovery.
+- **Unauthorized access** -- no single party holds the full key. Compromising one provider reveals nothing mathematically useful.
+- **Key replacement** -- re-run the ceremony, generate new shares, redeploy. The AES keys change, so encrypted data would need re-encryption (same as rotating any KMS key).
+- **Third-party concentration risk** (DORA Art. 28+) -- shares on separate providers in separate jurisdictions directly addresses this. DORA specifically calls out concentration risk with single ICT providers.
+- **Auditability** -- every operation logged independently on each provider.
+- **Revocability** -- either party can shut down their service instantly.
 
 ---
