@@ -225,7 +225,7 @@ Article 32 requires "appropriate technical measures" including encryption. Artic
 
 Article 28 (applicable since September 2025) requires cloud providers to take "all reasonable measures, including encryption" to prevent unlawful access to data, especially from third-country government requests. This is where threshold splitting has its strongest argument.
 
-The US CLOUD Act allows US law enforcement to compel American companies to hand over data stored abroad. But the CLOUD Act is encryption-neutral -- it does not compel providers to decrypt data they cannot decrypt. With threshold splitting, AWS holds encrypted bytes and zero shares. Scaleway holds one share (France). Exoscale holds one share (Switzerland). No single legal order in any jurisdiction yields the key. A subpoena to AWS is mathematically useless.
+The US CLOUD Act allows US law enforcement to compel American companies to hand over data stored abroad. But the CLOUD Act is encryption-neutral -- it does not compel providers to decrypt data they cannot decrypt. A subpoena to AWS is mathematically useless.
 
 ### EUCS (European Cybersecurity Certification Scheme for Cloud Services)
 
